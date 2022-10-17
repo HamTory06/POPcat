@@ -5,11 +5,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class PHP {
     companion object{
-        private const val url = "https://jsonplaceholder.typicode.com"
+        private const val url = "http://10.80.163.136:7000"
         private var server:Retrofit= Retrofit.Builder()
             .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        var pop:POP = server.create(POP::class.java)
+        var api:API = server.create(API::class.java)
     }
 }
