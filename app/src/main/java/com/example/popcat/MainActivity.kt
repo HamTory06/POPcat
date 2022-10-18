@@ -1,6 +1,7 @@
 package com.example.popcat
 
 import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.widget.TextView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URI
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +23,8 @@ class MainActivity : AppCompatActivity() {
         val tv = findViewById<TextView>(R.id.counts)
         val main = findViewById<ImageView>(R.id.cat)
         val request = PHP.api
-        var mediaplayer : MediaPlayer?= null
+        val uri = Uri.parse("https://www.myinstants.com/media/sounds/pop-cat-original-meme_3ObdYkj.mp3")
+        var mediaplayer = MediaPlayer.create(this, uri)
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 main.setImageResource(R.drawable.opencat)
