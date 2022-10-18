@@ -41,7 +41,7 @@
 
     <TextView
         android:text="100"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="100sp"
         android:id="@+id/counts"
         android:fontFamily="@font/nunito"

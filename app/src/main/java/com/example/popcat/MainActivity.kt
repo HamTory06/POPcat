@@ -1,5 +1,6 @@
 package com.example.popcat
 
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         val tv = findViewById<TextView>(R.id.counts)
         val main = findViewById<ImageView>(R.id.cat)
         val request = PHP.api
+        var mediaplayer : MediaPlayer?= null
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 main.setImageResource(R.drawable.opencat)
@@ -27,11 +29,14 @@ class MainActivity : AppCompatActivity() {
             }
             MotionEvent.ACTION_UP -> {
                 main.setImageResource(R.drawable.closecat)
+                mediaplayer?.start()
                 Log.d("상태", "클릭해제")
                 request.GetCounts().enqueue(object: Callback<POP>{
                     override fun onResponse(call: Call<POP>, response: Response<POP>) {
-                            Log.d("상태", "성공")
-                            tv.text = "${response.body()?.counts}"
+                        Log.d("상태", "성공")
+                        tv.text = "${response.body()?.counts}"
+
+
                     }
                     override fun onFailure(call: Call<POP>, t: Throwable) {
                         Log.d("상태","오류(서버)")
