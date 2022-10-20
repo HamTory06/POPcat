@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         val tv = findViewById<TextView>(R.id.counts)
         val main = findViewById<ImageView>(R.id.cat)
         val request = PHP.api
-        val uri = Uri.parse("https://www.myinstants.com/media/sounds/pop-cat-original-meme_3ObdYkj.mp3")
-        var mediaplayer = MediaPlayer.create(this, uri)
+//        val uri = Uri.parse("https://www.myinstants.com/media/sounds/pop-cat-original-meme_3ObdYkj.mp3")
+//        var mediaplayer = MediaPlayer.create(this, uri)
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 main.setImageResource(R.drawable.opencat)
@@ -32,14 +32,12 @@ class MainActivity : AppCompatActivity() {
             }
             MotionEvent.ACTION_UP -> {
                 main.setImageResource(R.drawable.closecat)
-                mediaplayer?.start()
+//                mediaplayer?.start()
                 Log.d("상태", "클릭해제")
                 request.GetCounts().enqueue(object: Callback<POP>{
                     override fun onResponse(call: Call<POP>, response: Response<POP>) {
                         Log.d("상태", "성공")
                         tv.text = "${response.body()?.counts}"
-
-
                     }
                     override fun onFailure(call: Call<POP>, t: Throwable) {
                         Log.d("상태","오류(서버)")
