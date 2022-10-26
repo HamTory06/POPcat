@@ -15,6 +15,8 @@ import java.net.URI
 
 class MainActivity : AppCompatActivity() {
 
+    var mediaplayer : MediaPlayer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,16 +25,20 @@ class MainActivity : AppCompatActivity() {
         val tv = findViewById<TextView>(R.id.counts)
         val main = findViewById<ImageView>(R.id.cat)
         val request = PHP.api
-//        val uri = Uri.parse("https://www.myinstants.com/media/sounds/pop-cat-original-meme_3ObdYkj.mp3")
-//        var mediaplayer = MediaPlayer.create(this, uri)
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 main.setImageResource(R.drawable.opencat)
+                mediaplayer = MediaPlayer.create(this, R.raw.popact_sound)
+                Log.d("TAG", mediaplayer.toString())
+                mediaplayer!!.start()
+                mediaplayer!!.setOnCompletionListener {
+                    it.stop()
+                }
+
                 Log.d("상태", "클릭")
             }
             MotionEvent.ACTION_UP -> {
                 main.setImageResource(R.drawable.closecat)
-//                mediaplayer?.start()
                 Log.d("상태", "클릭해제")
                 request.GetCounts().enqueue(object: Callback<POP>{
                     override fun onResponse(call: Call<POP>, response: Response<POP>) {
@@ -47,5 +53,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onTouchEvent(event)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaplayer?.release ()
     }
 }
