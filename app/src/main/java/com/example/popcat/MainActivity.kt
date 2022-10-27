@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             MotionEvent.ACTION_DOWN -> {
                 main.setImageResource(R.drawable.opencat)
                 mediaplayer = MediaPlayer.create(this, R.raw.popact_sound)
-                Log.d("TAG", mediaplayer.toString())
+                Log.d("소리상태", mediaplayer.toString())
                 mediaplayer!!.start()
                 mediaplayer!!.setOnCompletionListener {
                     it.stop()
@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             }
             MotionEvent.ACTION_UP -> {
                 main.setImageResource(R.drawable.closecat)
+                mediaplayer?.release ()
                 Log.d("상태", "클릭해제")
                 request.GetCounts().enqueue(object: Callback<POP>{
                     override fun onResponse(call: Call<POP>, response: Response<POP>) {
@@ -56,6 +57,5 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mediaplayer?.release ()
     }
 }
