@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
                 mediaplayer!!.setOnCompletionListener {
                     it.stop()
                 }
-
                 Log.d("상태", "클릭")
             }
             MotionEvent.ACTION_UP -> {
